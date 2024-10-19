@@ -11,18 +11,14 @@ public class LullAtkSpd : Skill
         : base("Lull Atk/Spd")
 
     {
-        tipo_de_ataque = "todos";
-        // Inicializar los tipos de ataque válidos
-        _ValidAttackType = AttackTypeValidator.GetAttackTypes(tipo_de_ataque);
-        UnidadesBonificadas = "oponente";
+        attackType = AttackType.All;
+        _ValidAttackType = AttackTypeValidator.GetAttackTypes(attackType);
+        UnidadesAfectadas = AffectedUnit.Opponent;
         _effects = new MultiEffect(
             new PenaltyEffect(StatType.Atk, 3),
             new PenaltyEffect(StatType.Spd, 3),
             new BonusStatNeutralizer(StatType.Atk),
             new BonusStatNeutralizer(StatType.Spd)
-
-            
-            
         );
         
     }

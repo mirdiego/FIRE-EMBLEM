@@ -17,27 +17,18 @@ public class Wrath : Skill
         : base("Wrath")
 
     {
-        tipo_de_ataque = "todos";
-        // Inicializar los tipos de ataque válidos
-        _ValidAttackType = AttackTypeValidator.GetAttackTypes(tipo_de_ataque);
-        UnidadesBonificadas = "dueno";
-        
-
-
-
-
+        attackType = AttackType.All;
+        _ValidAttackType = AttackTypeValidator.GetAttackTypes(attackType);
+        UnidadesAfectadas = AffectedUnit.Owner;
         _effects = new MultiEffect(
             new BonusPercentageInAnotherStatEffect(StatType.Atk, 1, StatType.MaxHP),
             new BonusPercentageInAnotherStatEffect(StatType.Spd, 1, StatType.MaxHP)
-
-            
             
         );
     }
     
     public override void AgregarCondiciones(View view)
     {
-        // Agregar la condición IniciaCombate
         AddCondition(new SiempreCumple());
 
     }

@@ -11,10 +11,9 @@ public class LullAtkRes : Skill
         : base("Lull Atk/Res")
 
     {
-        tipo_de_ataque = "todos";
-        // Inicializar los tipos de ataque válidos
-        _ValidAttackType = AttackTypeValidator.GetAttackTypes(tipo_de_ataque);
-        UnidadesBonificadas = "oponente";
+        attackType = AttackType.All;
+        _ValidAttackType = AttackTypeValidator.GetAttackTypes(attackType);
+        UnidadesAfectadas = AffectedUnit.Opponent;
         _effects = new MultiEffect(
             new PenaltyEffect(StatType.Atk, 3),
             new PenaltyEffect(StatType.Res, 3),

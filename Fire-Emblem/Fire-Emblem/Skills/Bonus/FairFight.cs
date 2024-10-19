@@ -17,17 +17,16 @@ public class FairFight : Skill
         : base("Fair Fight")
 
     {
-        tipo_de_ataque = "todos";
-        // Inicializar los tipos de ataque válidos
-        _ValidAttackType = AttackTypeValidator.GetAttackTypes(tipo_de_ataque);
-        UnidadesBonificadas = "ambas";
+        attackType = AttackType.All;
+        _ValidAttackType = AttackTypeValidator.GetAttackTypes(attackType);
+        UnidadesAfectadas = AffectedUnit.Both;
         
 
 
 
 
         _effects = new MultiEffect(
-            new BonusEffect(StatType.Atk, 6)
+            new BonusOnBothPlayerEffect(StatType.Atk, 6)
             
             
         );

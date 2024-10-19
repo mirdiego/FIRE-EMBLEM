@@ -17,25 +17,16 @@ public class DefensePlus5 : Skill
         : base("Defense +5")
 
     {
-        tipo_de_ataque = "todos";
-        // Inicializar los tipos de ataque válidos
-        _ValidAttackType = AttackTypeValidator.GetAttackTypes(tipo_de_ataque);
-        UnidadesBonificadas = "dueno";
-        
-
-
-
-
+        attackType = AttackType.All;
+        _ValidAttackType = AttackTypeValidator.GetAttackTypes(attackType);
+        UnidadesAfectadas = AffectedUnit.Owner;
         _effects = new MultiEffect(
             new BonusEffect(StatType.Def, 5)
-            
-            
         );
     }
     
     public override void AgregarCondiciones(View view)
     {
-        // Agregar la condición IniciaCombate
         AddCondition(new SiempreCumple());
     }
 

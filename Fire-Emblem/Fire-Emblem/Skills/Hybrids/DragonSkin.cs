@@ -18,18 +18,15 @@ public class DragonSkin : Skill
         : base("Dragonskin")
 
     {
-        tipo_de_ataque = "todos";
-        // Inicializar los tipos de ataque válidos
-        _ValidAttackType = AttackTypeValidator.GetAttackTypes(tipo_de_ataque);
-        UnidadesBonificadas = "dueno";
+        attackType = AttackType.All;
+        _ValidAttackType = AttackTypeValidator.GetAttackTypes(attackType);
+        UnidadesAfectadas = AffectedUnit.Owner;
         _effects = new MultiEffect(
             new BonusEffect(StatType.Atk, 6),
             new BonusEffect(StatType.Spd, 6),
             new BonusEffect(StatType.Def, 6),
             new BonusEffect(StatType.Res, 6),
             new BonusNeutralizer()
-            
-            
         );
         
     }

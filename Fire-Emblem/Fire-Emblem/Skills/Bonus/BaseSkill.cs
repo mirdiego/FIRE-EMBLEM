@@ -10,7 +10,7 @@ namespace Fire_Emblem.Skills
         public BaseSkill(string name)
         {
             Name = name;
-            IsActive = false; // Las habilidades comienzan como inactivas por defecto.
+            IsActive = false; 
         }
 
         public void Activate()
@@ -23,7 +23,5 @@ namespace Fire_Emblem.Skills
             IsActive = false;
         }
 
-        // public abstract void ApplyEffect(Combat context, View view);
-        // public abstract void RevertEffect(Combat context, View view);
     }
 }

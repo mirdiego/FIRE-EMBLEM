@@ -17,13 +17,12 @@ public class AxePower : Skill
         : base("Axe Power")
 
     {
-        tipo_de_ataque = "todos";
-        // Inicializar los tipos de ataque válidos
-        _ValidAttackType = AttackTypeValidator.GetAttackTypes(tipo_de_ataque);
-        UnidadesBonificadas = "dueno";
+        attackType = AttackType.All;
+        _ValidAttackType = AttackTypeValidator.GetAttackTypes(attackType);
+        UnidadesAfectadas = AffectedUnit.Owner;
         _effects = new MultiEffect(
             new BonusEffect(StatType.Atk, 10),
-            new PenaltyEffect(StatType.Def, 10)
+            new PenaltyOnOwnerEffect(StatType.Def, 10)
             
             
         );

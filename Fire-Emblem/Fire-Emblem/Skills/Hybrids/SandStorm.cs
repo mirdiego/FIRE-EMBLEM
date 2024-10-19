@@ -17,10 +17,9 @@ public class SandStorm : Skill
         : base("Sandstorm")
 
     {
-        tipo_de_ataque = "followup";
-        // Inicializar los tipos de ataque válidos
-        _ValidAttackType = AttackTypeValidator.GetAttackTypes(tipo_de_ataque);
-        UnidadesBonificadas = "dueno";
+        attackType = AttackType.FollowUp;
+        _ValidAttackType = AttackTypeValidator.GetAttackTypes(attackType);
+        UnidadesAfectadas = AffectedUnit.Owner;
     }
     
     public override void AgregarCondiciones(View view)
@@ -50,7 +49,7 @@ public class SandStorm : Skill
         else
         {
             _effects = new MultiEffect(
-                new PenaltyEffect(StatType.Atk, (-1 * valor_aregado))
+                new PenaltyOnOwnerEffect(StatType.Atk, (-1 * valor_aregado))
             );
         }
       

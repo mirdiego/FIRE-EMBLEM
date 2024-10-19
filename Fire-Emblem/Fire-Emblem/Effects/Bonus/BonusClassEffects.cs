@@ -10,7 +10,7 @@ public abstract class BonusClassEffects : Effect
     public override void NeutralizeOwnerBonus(Skill skill, Neutralizer.BonusStatNeutralizer neutralizer, Unit unit)
     {
         {
-            if (skill.GetUnidadesBonificadas() == "dueno" || skill.GetUnidadesBonificadas() == "ambas")
+            if (skill.GetUnidadesAfectadas() == AffectedUnit.Owner || skill.GetUnidadesAfectadas() == AffectedUnit.Both)
             {
                 if (neutralizer.GetStat() == GetStatType())
                 {
@@ -23,7 +23,7 @@ public abstract class BonusClassEffects : Effect
     {
         {
             {
-                if (skill.GetUnidadesBonificadas() == "oponente" || skill.GetUnidadesBonificadas() == "ambas")
+                if (skill.GetUnidadesAfectadas() == AffectedUnit.Opponent || skill.GetUnidadesAfectadas() == AffectedUnit.Both)
                 {
                     if (neutralizer.GetStat() == GetStatType())
                     {
@@ -36,7 +36,7 @@ public abstract class BonusClassEffects : Effect
     public override void NeutralizeAllOwnerBonus(Skill skill, Neutralizer.BonusNeutralizer neutralizer, Unit unit)
     {
         {
-            if (skill.GetUnidadesBonificadas() == "dueno" || skill.GetUnidadesBonificadas() == "ambas")
+            if (skill.GetUnidadesAfectadas() == AffectedUnit.Owner || skill.GetUnidadesAfectadas() == AffectedUnit.Both)
             {
                 StatType stat = GetStatType();
                 neutralizer.ApplyBonusNeutralizer(unit, this, stat);
@@ -47,7 +47,7 @@ public abstract class BonusClassEffects : Effect
     public override void NeutralizeAllOpponentBonus(Skill skill, Neutralizer.BonusNeutralizer neutralizer, Unit unit)
     {
         {
-            if (skill.GetUnidadesBonificadas() == "oponente" || skill.GetUnidadesBonificadas() == "ambas")
+            if (skill.GetUnidadesAfectadas() == AffectedUnit.Opponent || skill.GetUnidadesAfectadas() == AffectedUnit.Both)
             {
                 StatType stat = GetStatType();
                 neutralizer.ApplyBonusNeutralizer(unit, this, stat);
@@ -61,7 +61,6 @@ public abstract class BonusClassEffects : Effect
         return _targetStat;
     }
 
-    // Método para obtener el valor del bono
     public int GetBonusValue()
     {
         return _bonus;

@@ -17,10 +17,9 @@ public class AtkResPlus5 : Skill
         : base("Atk/Def +5")
 
     {
-        tipo_de_ataque = "todos";
-        // Inicializar los tipos de ataque válidos
-        _ValidAttackType = AttackTypeValidator.GetAttackTypes(tipo_de_ataque);
-        UnidadesBonificadas = "dueno";
+        attackType = AttackType.All;
+        _ValidAttackType = AttackTypeValidator.GetAttackTypes(attackType);
+        UnidadesAfectadas = AffectedUnit.Owner;
         _effects = new MultiEffect(
             new BonusEffect(StatType.Res, 5),
             new BonusEffect(StatType.Atk, 5)
@@ -29,7 +28,6 @@ public class AtkResPlus5 : Skill
     
     public override void AgregarCondiciones(View view)
     {
-        // Agregar la condición IniciaCombate
         AddCondition(new SiempreCumple());
     }
 

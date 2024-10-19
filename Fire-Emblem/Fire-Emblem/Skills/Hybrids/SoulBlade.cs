@@ -17,10 +17,9 @@ public class SoulBlade : Skill
         : base("Soulblade")
 
     {
-        tipo_de_ataque = "todos";
-        // Inicializar los tipos de ataque válidos
-        _ValidAttackType = AttackTypeValidator.GetAttackTypes(tipo_de_ataque);
-        UnidadesBonificadas = "oponente";
+        attackType = AttackType.All;
+        _ValidAttackType = AttackTypeValidator.GetAttackTypes(attackType);
+        UnidadesAfectadas = AffectedUnit.Opponent;
     }
     
     public override void AgregarCondiciones(View view)
@@ -45,7 +44,7 @@ public class SoulBlade : Skill
         if (DiferenciaPromedioConDef >= 0 && DiferenciaPromedioConRes <= 0)
         {
             _effects = new MultiEffect(
-                new BonusEffect(StatType.Def, DiferenciaPromedioConDef), 
+                new BonusOnOpponentEffect(StatType.Def, DiferenciaPromedioConDef), 
                 new PenaltyEffect(StatType.Res, (-1 * DiferenciaPromedioConRes))
                 
             );
@@ -54,7 +53,7 @@ public class SoulBlade : Skill
         {
             _effects = new MultiEffect(
                 new PenaltyEffect(StatType.Def, (-1 * DiferenciaPromedioConDef)),
-                new BonusEffect(StatType.Res, DiferenciaPromedioConRes)
+                new BonusOnOpponentEffect(StatType.Res, DiferenciaPromedioConRes)
             );
         }
 

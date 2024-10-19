@@ -17,17 +17,14 @@ public class LifeAndDeath : Skill
         : base("Life And Death")
 
     {
-        tipo_de_ataque = "todos";
-        // Inicializar los tipos de ataque válidos
-        _ValidAttackType = AttackTypeValidator.GetAttackTypes(tipo_de_ataque);
-        UnidadesBonificadas = "dueno";
+        attackType = AttackType.All;
+        _ValidAttackType = AttackTypeValidator.GetAttackTypes(attackType);
+        UnidadesAfectadas = AffectedUnit.Owner;
         _effects = new MultiEffect(
             new BonusEffect(StatType.Atk, 6),
             new BonusEffect(StatType.Spd, 6),
-            new PenaltyEffect(StatType.Def, 5),
-            new PenaltyEffect(StatType.Res, 5)
-
-            
+            new PenaltyOnOwnerEffect(StatType.Def, 5),
+            new PenaltyOnOwnerEffect(StatType.Res, 5)
         );
         
     }

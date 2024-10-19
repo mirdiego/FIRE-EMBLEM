@@ -17,10 +17,9 @@ public class DisarmingSigh : Skill
         : base("Disarming Sigh")
 
     {
-        tipo_de_ataque = "todos";
-        // Inicializar los tipos de ataque válidos
-        _ValidAttackType = AttackTypeValidator.GetAttackTypes(tipo_de_ataque);
-        UnidadesBonificadas = "oponente";
+        attackType = AttackType.All;
+        _ValidAttackType = AttackTypeValidator.GetAttackTypes(attackType);
+        UnidadesAfectadas = AffectedUnit.Opponent;
         _effects = new MultiEffect(
             new PenaltyEffect(StatType.Atk, 8)
         );
@@ -28,7 +27,6 @@ public class DisarmingSigh : Skill
     
     public override void AgregarCondiciones(View view)
     {
-        // Agregar la condición IniciaCombate
         AddCondition(new RivalEsHombre(Owner, Owner.CurrentCombat));
     }
 

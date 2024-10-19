@@ -27,7 +27,7 @@ public class PenaltyEffect : PenaltyClassEffects
 
     public override void Apply(Unit unit, View view, Output output, Skill skill)
     {
-        ApplyEffects(unit, _penalty, view);
+        ApplyEffects(unit.Opponent, _penalty, view);
         
     }
 

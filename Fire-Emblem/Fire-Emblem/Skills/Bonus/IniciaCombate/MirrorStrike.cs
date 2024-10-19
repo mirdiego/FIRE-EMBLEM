@@ -17,15 +17,9 @@ public class MirrorStrike : Skill
         : base("Mirror Strike")
 
     {
-        tipo_de_ataque = "todos";
-        // Inicializar los tipos de ataque válidos
-        _ValidAttackType = AttackTypeValidator.GetAttackTypes(tipo_de_ataque);
-        UnidadesBonificadas = "dueno";
-        
-
-
-
-
+        attackType = AttackType.All;
+        _ValidAttackType = AttackTypeValidator.GetAttackTypes(attackType);
+        UnidadesAfectadas = AffectedUnit.Owner;
         _effects = new MultiEffect(
             new BonusEffect(StatType.Atk, 6)
 ,            new BonusEffect(StatType.Res, 6)
@@ -36,7 +30,6 @@ public class MirrorStrike : Skill
     
     public override void AgregarCondiciones(View view)
     {
-        // Agregar la condición IniciaCombate
         AddCondition(new IniciaCombate(Owner, Owner.CurrentCombat));
     }
 
@@ -45,6 +38,6 @@ public class MirrorStrike : Skill
 
     public override void CumpleCondiciones(Unit owner, View view)
     {
-        VerificarYActivar(view); // Verifica las condiciones y activa si es necesario
+        VerificarYActivar(view); 
     }
 }

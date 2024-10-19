@@ -17,20 +17,16 @@ public class HpPlus15 : Skill
         : base("HP +15")
 
     {
-        tipo_de_ataque = "unavez";
-        // Inicializar los tipos de ataque válidos
-        _ValidAttackType = AttackTypeValidator.GetAttackTypes(tipo_de_ataque);
-        UnidadesBonificadas = "dueno";
+        attackType = AttackType.Start;
+        _ValidAttackType = AttackTypeValidator.GetAttackTypes(attackType);
+        UnidadesAfectadas = AffectedUnit.Owner;
         _effects = new MultiEffect(
             new BonusEffect(StatType.MaxHP, 15)
-            
-            
         );
     }
     
     public override void AgregarCondiciones(View view)
     {
-        // Agregar la condición IniciaCombate
         AddCondition(new SiempreCumple());
         AddCondition(new UnSoloUso());
     }

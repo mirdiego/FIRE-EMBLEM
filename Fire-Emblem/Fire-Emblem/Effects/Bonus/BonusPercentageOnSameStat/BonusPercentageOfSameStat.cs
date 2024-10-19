@@ -5,16 +5,11 @@ using Fire_Emblem.Outputs;
 
 namespace FireEmblem.Effects;
 
-public class BonusPercentageOfSameStatEffect : BonusValueCalculate
+public abstract class BonusPercentageOfSameStat : BonusValueCalculate
 {
-    private readonly double _proporcion_extra;
+    protected  double _proporcion_extra;
     
-    public BonusPercentageOfSameStatEffect(StatType targetStat, double proporcion_extra)
-    {
-        _targetStat = targetStat;
-        _proporcion_extra = proporcion_extra;
-        _bonus = 0;
-    }
+
     public StatType GetStatType()
     {
         return _targetStat;
@@ -27,13 +22,6 @@ public class BonusPercentageOfSameStatEffect : BonusValueCalculate
     }
     
 
-    public override void Apply(Unit unit, View view, Output output, Skill skill)
-    {
-
-        ApplyEffects(unit, _bonus, view);
-
-        
-    }
 
     public override void CalculateBonus(Unit unit)
     {

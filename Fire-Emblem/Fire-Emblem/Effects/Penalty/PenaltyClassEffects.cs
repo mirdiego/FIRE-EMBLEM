@@ -24,7 +24,7 @@ public abstract class PenaltyClassEffects : Effect
     }
     public override void NeutralizeOwnerPenalty(Skill skill, PenaltyNeutralizer neutralizer, Unit unit)
     {
-        if (skill.GetUnidadesBonificadas() == "oponente" || skill.GetUnidadesBonificadas() == "ambas")
+        if (skill.GetUnidadesAfectadas() == AffectedUnit.Opponent || skill.GetUnidadesAfectadas() == AffectedUnit.Both)
         {
             neutralizer.ApplyPenaltyNeutralizer(unit, this);
           
@@ -32,7 +32,7 @@ public abstract class PenaltyClassEffects : Effect
     }
     public override void NeutralizeOpponentPenalty(Skill skill, PenaltyNeutralizer neutralizer, Unit unit)
     {
-        if (skill.GetUnidadesBonificadas() == "dueno" || skill.GetUnidadesBonificadas() == "ambas")
+        if (skill.GetUnidadesAfectadas() == AffectedUnit.Owner || skill.GetUnidadesAfectadas() == AffectedUnit.Both)
         {
             neutralizer.ApplyPenaltyNeutralizer(unit, this);
           

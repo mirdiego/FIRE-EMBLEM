@@ -30,7 +30,7 @@ public class PenaltyPercentageInRivalStat : PenaltyValueCalculate
     {
 
 
-        ApplyEffects(unit, _penalty, view);
+        ApplyEffects(unit.Opponent, _penalty, view);
 
     }
 

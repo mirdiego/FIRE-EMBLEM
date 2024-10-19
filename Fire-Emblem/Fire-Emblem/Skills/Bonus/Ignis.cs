@@ -17,25 +17,16 @@ public class Ignis : Skill
         : base("Ignis")
 
     {
-        tipo_de_ataque = "primero";
-        // Inicializar los tipos de ataque válidos
-        _ValidAttackType = AttackTypeValidator.GetAttackTypes(tipo_de_ataque);
-        UnidadesBonificadas = "dueno";
-        
-
-
-
-
+        attackType = AttackType.First;
+        _ValidAttackType = AttackTypeValidator.GetAttackTypes(attackType);
+        UnidadesAfectadas = AffectedUnit.Owner;
         _effects = new MultiEffect(
             new BonusPercentageOfSameStatEffect(StatType.Atk, 0.5)
-            
-            
         );
     }
     
     public override void AgregarCondiciones(View view)
     {
-        // Agregar la condición IniciaCombate
         AddCondition(new SiempreCumple());
     }
 

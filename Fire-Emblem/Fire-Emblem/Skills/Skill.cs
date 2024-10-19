@@ -9,7 +9,7 @@ namespace Fire_Emblem
 {
     public abstract class Skill
     {
-        protected string UnidadesBonificadas;
+        protected AffectedUnit UnidadesAfectadas;
         public string Name { get; private set; }
         protected Unit Owner { get; private set; }
         public List<string> _ValidAttackType; 
@@ -35,7 +35,7 @@ namespace Fire_Emblem
             AgregarCondiciones(view);
             
         }
-        protected string tipo_de_ataque;
+        protected AttackType attackType;
 
         public abstract void AgregarCondiciones(View view);
 
@@ -124,19 +124,9 @@ namespace Fire_Emblem
             if (activo)
             {
 
-                if (UnidadesBonificadas == "ambas")
-                {
                     _effects.Apply(Owner, view, output, this);
-                    _effects.Apply(Owner.Opponent, view, output, this);
-                }
-                else if (UnidadesBonificadas == "dueno")
-                {
-                    _effects.Apply(Owner, view, output, this);
-                }
-                else if (UnidadesBonificadas == "oponente")
-                {
-                    _effects.Apply(Owner.Opponent, view, output, this);
-                }
+                
+           
             }
             
         }
@@ -166,19 +156,19 @@ namespace Fire_Emblem
                     {
                         StatType stat = bonusEffect.GetStatType();
                         int value = bonusEffect.GetBonusValue();
-                        var units = GetUnitsToApplyEffect(UnidadesBonificadas, "bonus");
+                        var units = GetUnitsToApplyEffect(UnidadesAfectadas, "bonus");
 
                         foreach (var unit in units)
                         {
-                            if (tipo_de_ataque == "primero")
+                            if (attackType == AttackType.First)
                             {
                                 output.Skills.BonusFirstAttack(stat, value, unit.Name, unit.IsStarter);
                             }
-                            else if (tipo_de_ataque == "followup")
+                            else if (attackType == AttackType.FollowUp)
                             {
                                 output.Skills.BonusFollowUp(stat, value, unit.Name, unit.IsStarter);
                             }
-                            else if (tipo_de_ataque == "todos" || tipo_de_ataque == "unavez")
+                            else if (attackType == AttackType.All || attackType == AttackType.Start)
                             {
                                 output.Skills.BonusFullCombat(stat, value, unit.Name, unit.IsStarter);
                             }
@@ -189,19 +179,19 @@ namespace Fire_Emblem
                     {
                         StatType stat = penaltyEffect.GetStatType();
                         int value = penaltyEffect.GetPenaltyValue();
-                        var units = GetUnitsToApplyEffect(UnidadesBonificadas, "penalty");
+                        var units = GetUnitsToApplyEffect(UnidadesAfectadas, "penalty");
 
                         foreach (var unit in units)
                         {
-                            if (tipo_de_ataque == "primero")
+                            if (attackType == AttackType.First)
                             {
                                 output.Skills.PenaltyFirstAttack(stat, value, unit.Opponent.Name, unit.IsStarter);
                             }
-                            else if (tipo_de_ataque == "followup")
+                            else if (attackType == AttackType.FollowUp)
                             {
                                 output.Skills.PenaltyFollowUp(stat, value, unit.Opponent.Name, unit.IsStarter);
                             }
-                            else if (tipo_de_ataque == "todos" || tipo_de_ataque == "unavez")
+                            else if (attackType == AttackType.All || attackType == AttackType.Start)
                             {
                                 output.Skills.PenaltyFullCombat(stat, value, unit.Opponent.Name, unit.IsStarter);
                             }
@@ -238,17 +228,17 @@ namespace Fire_Emblem
                 }
             }
         }
-        private List<Unit> GetUnitsToApplyEffect(string unidades, string effect)
+        private List<Unit> GetUnitsToApplyEffect(AffectedUnit unidades, string effect)
         {
             var units = new List<Unit>();
 
             switch (unidades)
             {
-                case "ambas":
+                case AffectedUnit.Both:
                     units.Add(Owner);
                     units.Add(Owner.Opponent);
                     break;
-                case "dueno":
+                case AffectedUnit.Owner:
                     if (effect == "penalty")
                     {
                         units.Add(Owner.Opponent);
@@ -259,7 +249,7 @@ namespace Fire_Emblem
 
                     }
                     break;
-                case "oponente":
+                case AffectedUnit.Opponent:
                     if (effect == "penalty")
                     {
                         units.Add(Owner);
@@ -275,9 +265,9 @@ namespace Fire_Emblem
             return units;
         }
 
-        public string GetUnidadesBonificadas()
+        public AffectedUnit GetUnidadesAfectadas()
         {
-            return UnidadesBonificadas;
+            return UnidadesAfectadas;
         }
     }
 }

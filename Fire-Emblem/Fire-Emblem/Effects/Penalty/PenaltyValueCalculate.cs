@@ -22,7 +22,7 @@ public abstract class PenaltyValueCalculate : PenaltyClassEffects
     }
     public override void Apply(Unit unit, View view, Output output, Skill skill)
     {
-        ApplyEffects(unit, _penalty, view);
+        ApplyEffects(unit.Opponent, _penalty, view);
     }
     public abstract void CalculatePenalty(Unit unit);
 }

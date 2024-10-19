@@ -3,18 +3,12 @@ using FireEmblem.Effects;
 
 namespace Fire_Emblem.Effects;
 
-public class BonusPercentageInAnotherStatEffect : BonusValueCalculate
+public abstract class BonusPercentageInAnotherStat : BonusValueCalculate
 {
-    private readonly double _proporcion_extra;
-    private readonly StatType _statArevisar;
+    protected  double _proporcion_extra;
+    protected  StatType _statArevisar;
     
-    public BonusPercentageInAnotherStatEffect(StatType targetStat, double proporcion_extra, StatType statArevisar)
-    {
-        _targetStat = targetStat;
-        _statArevisar = statArevisar;
-        _proporcion_extra = proporcion_extra;
-        _bonus = 0;
-    }
+
     public StatType GetStatType()
     {
         return _targetStat;
@@ -27,18 +21,7 @@ public class BonusPercentageInAnotherStatEffect : BonusValueCalculate
     }
     
 
-    public override void Apply(Unit unit, View view, Output output, Skill skill)
-    {
 
-        if (_bonus > 30)
-        {
-            _bonus = 30;
-
-            
-        }
-        ApplyEffects(unit, _bonus, view);
-
-    }
 
     public override void CalculateBonus(Unit unit)
     {

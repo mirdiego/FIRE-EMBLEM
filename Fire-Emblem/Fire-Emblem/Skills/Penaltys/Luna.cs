@@ -17,10 +17,9 @@ public class Luna : Skill
         : base("Luna")
 
     {
-        tipo_de_ataque = "primero";
-        // Inicializar los tipos de ataque válidos
-        _ValidAttackType = AttackTypeValidator.GetAttackTypes(tipo_de_ataque);
-        UnidadesBonificadas = "oponente";
+        attackType = AttackType.First;
+        _ValidAttackType = AttackTypeValidator.GetAttackTypes(attackType);
+        UnidadesAfectadas = AffectedUnit.Opponent;
         _effects = new MultiEffect(
             new PenaltyPercentageInRivalStat(StatType.Def, StatType.Def),
             new PenaltyPercentageInRivalStat(StatType.Res, StatType.Res)
@@ -29,7 +28,6 @@ public class Luna : Skill
     
     public override void AgregarCondiciones(View view)
     {
-        // Agregar la condición IniciaCombate
         AddCondition(new SiempreCumple());
     }
 

@@ -17,15 +17,9 @@ public class BracingBlow : Skill
         : base("Bracing Blow")
 
     {
-        tipo_de_ataque = "todos";
-        // Inicializar los tipos de ataque válidos
-        _ValidAttackType = AttackTypeValidator.GetAttackTypes(tipo_de_ataque);
-        UnidadesBonificadas = "dueno";
-        
-
-
-
-
+        attackType = AttackType.All;
+        _ValidAttackType = AttackTypeValidator.GetAttackTypes(attackType);
+        UnidadesAfectadas = AffectedUnit.Owner;
         _effects = new MultiEffect(
             new BonusEffect(StatType.Def, 6), new BonusEffect(StatType.Res, 6)
             
@@ -35,7 +29,6 @@ public class BracingBlow : Skill
     
     public override void AgregarCondiciones(View view)
     {
-        // Agregar la condición IniciaCombate
         AddCondition(new IniciaCombate(Owner, Owner.CurrentCombat));
     }
 
