@@ -8,7 +8,7 @@ namespace Fire_Emblem.Teams
     {
         public string Name { get; private set; }
         public List<Unit> Units { get; private set; } 
-        public Unit SelectedUnit { get; private set; }
+        public Unit SelectedUnit { get; set; }
 
         public Team(string name)
         {
@@ -28,59 +28,56 @@ namespace Fire_Emblem.Teams
             
         }
         
-        public bool HasUniqueUnits(View view)
+        public void HasUniqueUnits(View view)
         {
             var unitNames = new HashSet<string>();
-            if (Units.All(unit => unitNames.Add(unit.Name)))
+            if (!(Units.All(unit => unitNames.Add(unit.Name))))
             {
-                return true;
-            }
-            else
-            {
-                throw new ArgumentException("Archivo de equipos no válido");
+                throw new ArgumentException();
+
             }
         }
 
-        public bool AllUnitsHaveValidSkills(View view)
+        public void AllUnitsHaveValidSkills(View view)
         {
-            if (Units.All(unit =>
-                    unit.Skills.Count <= 2 && unit.Skills.Count == unit.Skills.Distinct().Count()))
+            if (!(Units.All(unit =>
+                    unit.Skills.Count <= 2 && unit.Skills.Count == unit.Skills.Distinct().Count())))
             {
-                foreach (Unit checkedunit in Units)
+                throw new ArgumentException();
+            }
+            
+            foreach (Unit checkedunit in Units)
+            {
+                foreach (Skill skill in checkedunit.Skills)
                 {
-                    foreach (Skill skill in checkedunit.Skills)
+                    foreach (Skill skill2 in checkedunit.Skills)
                     {
-                        foreach (Skill skill2 in checkedunit.Skills)
+                        if ((skill != skill2) && skill.Name == skill2.Name)
                         {
-                            if ((skill != skill2) && skill.Name == skill2.Name)
-                            {
-                                throw new ArgumentException("Archivo de equipos no válido");
-                            }
+                            throw new ArgumentException();
                         }
                     }
                 }
-
-                return true;
             }
-            else
-            {
-                throw new ArgumentException("Archivo de equipos no válido");
-            }
+            
         }
 
-        public bool HasValidNumberOfUnits(View view)
+        public void HasValidNumberOfUnits(View view)
         {
-            if (Units.Count >= 1 && Units.Count <= 3)
+            if (!(Units.Count >= 1 && Units.Count <= 3))
             {
-                return true;
-            }
-            else
-            {
-                throw new ArgumentException("Archivo de equipos no válido");
+                throw new ArgumentException();
+
             }
         }
 
         public void SelectUnit(View view)
+        {
+            PrintUnitNames(view);
+            TrySelectUnit(view);
+        }
+
+        private void PrintUnitNames(View view)
         {
             for (int i = 0; i < Units.Count; i++)
             {
@@ -89,7 +86,9 @@ namespace Fire_Emblem.Teams
                     view.WriteLine($"{i}: {Units[i].Name}");
                 }
             }
-
+        }
+        private void TrySelectUnit(View view)
+        {
             int input = Convert.ToInt32(view.ReadLine());
             if (input < 0 || input >= Units.Count || !Units[input].IsAlive)
             {

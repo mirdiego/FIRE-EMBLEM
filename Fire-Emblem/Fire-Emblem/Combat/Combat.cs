@@ -10,7 +10,6 @@ public class Combat
     public Unit Attacker { get; set; }
     public Unit Defender { get; set; }
     View View { get; set; }
-    CombatController combatController { get; set; }
     public Output Output { get; set; }
     public List<string> Attacktype { get; set; }
     
@@ -35,10 +34,10 @@ public class Combat
         Units = new List<Unit> {Attacker, Defender};
     }
     
-    public void StartRound()
+    public void SimulateRound()
     {
         PrepareRound();
-        ComenzarRonda();
+        StartRound();
         GuardarMensajeSiNoHayFollowUp();
         InicializarStatsParaRonda();
         SetAsLastOpponents();
@@ -46,7 +45,7 @@ public class Combat
         Output.PrintRound(View);
     }
 
-    public void PrepareRound()
+    private void PrepareRound()
     {
         PrepareSkills();
         Attacker.SetCombat(this, View);
@@ -71,7 +70,7 @@ public class Combat
         }
     }
     
-    public void ComenzarRonda()
+    private void StartRound()
     {
         while (Attacktype[Attackposition] != "finished combat")
         {
@@ -193,26 +192,6 @@ public class Combat
         Attacker.LastOponentName = Defender.Name;
         Defender.LastOponentName = Attacker.Name;
     }
-
-    public void DebugStatsyBonus()
-    {
-        View.WriteLine("Las stats del atacker son:");
-        View.WriteLine("El ataque es: " + Attacker.Attack);
-        View.WriteLine("La defensa es: " + Attacker.Defense);
-        View.WriteLine("La resistencia es: " + Attacker.Resistance);
-        View.WriteLine("La velocidad es: " + Attacker.Speed);
-        View.WriteLine("El hp es: " + Attacker.CurrentHP);
-        View.WriteLine("El hp base maximo es: " + Attacker.BaseMaxHP);
-        View.WriteLine("El hp maximo es: " + Attacker.MaxHP);
-        View.WriteLine("Las stats del defensor son:");
-        View.WriteLine("El ataque es: " + Defender.Attack);
-        View.WriteLine("La defensa es: " + Defender.Defense);
-        View.WriteLine("La resistencia es: " + Defender.Resistance);
-        View.WriteLine("La velocidad es: " + Defender.Speed);
-        
-        View.WriteLine("El hp es: " + Defender.CurrentHP);
-        View.WriteLine("El hp base maximo es: " + Defender.BaseMaxHP);
-        View.WriteLine("El hp maximo es: " + Defender.MaxHP);
-    }
+    
     
 }
